@@ -107,7 +107,7 @@
         <table class="header">
             <tr>
                 <td>
-                    <div class="logo">Vantage Digital Agency</div>
+                    <img src="{{ public_path('images/vantagelogo.png') }}" alt="Vantage Logo" style="height: 60px; width: auto; margin-bottom: 10px;">
                     <div class="company-info">
                         Vantage Digital Agency<br>
                         Email: info@vantagedigitalagency.co.ke<br>

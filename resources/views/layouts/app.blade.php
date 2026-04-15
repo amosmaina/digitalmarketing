@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/vantagelogo.png') }}">
 
     @hasSection('seo')
         @yield('seo')
@@ -51,7 +52,7 @@
             <nav class="glass backdrop-blur-md">
                 <div class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="{{ url('/') }}" class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl">V</div>
+                    <img src="{{ asset('images/vantagelogo.png') }}" alt="Vantage Logo" class="h-10 w-auto object-contain">
                     <span class="text-2xl font-bold gradient-text">VANTAGE</span>
                 </a>
 
@@ -103,7 +104,7 @@
             <div id="mobile-menu" class="fixed inset-0 bg-gray-950 z-[9999] hidden md:hidden flex flex-col">
                 <div class="flex justify-between items-center px-6 py-4 border-b border-white/5 bg-gray-950">
                     <a href="{{ url('/') }}" class="flex items-center space-x-2">
-                        <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl">V</div>
+                        <img src="{{ asset('images/vantagelogo.png') }}" alt="Vantage Logo" class="h-10 w-auto object-contain">
                         <span class="text-2xl font-bold gradient-text">VANTAGE</span>
                     </a>
                     <button id="close-mobile-menu" class="text-white focus:outline-none p-2">

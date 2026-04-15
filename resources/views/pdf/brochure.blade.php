@@ -17,6 +17,7 @@
 </head>
 <body>
     <div class="header">
+        <img src="{{ public_path('images/vantagelogo.png') }}" alt="Vantage Logo" style="height: 60px; width: auto; margin-bottom: 10px; filter: brightness(0) invert(1);">
         <h1>VANTAGE DIGITAL AGENCY</h1>
         <p>Premium Solutions for Modern Businesses</p>
     </div>
