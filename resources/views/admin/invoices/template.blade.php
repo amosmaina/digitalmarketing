@@ -107,13 +107,12 @@
         <table class="header">
             <tr>
                 <td>
-                    <div class="logo">Digital Services</div>
-                    <p>
-                        123 Business Avenue<br>
-                        City, Country 12345<br>
-                        Email: info@digitalservices.com<br>
-                        Phone: +1 234 567 890
-                    </p>
+                    <div class="logo">Vantage Digital Agency</div>
+                    <div class="company-info">
+                        Vantage Digital Agency<br>
+                        Email: info@vantagedigitalagency.co.ke<br>
+                        Phone: +254 780 088088
+                    </div>
                 </td>
                 <td class="invoice-details">
                     <h2 style="margin-top: 0; color: #2563eb;">INVOICE</h2>

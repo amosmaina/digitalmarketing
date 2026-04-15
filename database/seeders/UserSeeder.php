@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Admin User',
-            'email' => 'admin@digital.com',
+            'email' => 'info@vantagedigitalagency.co.ke',
             'password' => Hash::make('password'),
             'role' => 'admin'
         ]);

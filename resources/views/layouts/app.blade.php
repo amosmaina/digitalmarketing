@@ -8,7 +8,7 @@
     @hasSection('seo')
         @yield('seo')
     @else
-        <title>Digital Services - Premium Solutions</title>
+        <title>Vantage Digital Agency - Premium Solutions</title>
         <meta name="description" content="We offer premium digital solutions ranging from branding to AI automation.">
     @endif
 
@@ -37,8 +37,8 @@
             <div class="bg-indigo-600/10 border-b border-white/5 py-2 hidden md:block backdrop-blur-md">
                 <div class="container mx-auto px-6 flex justify-between items-center text-xs text-gray-400">
                     <div class="flex items-center space-x-6">
-                        <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> contact@digital.com</span>
-                        <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> +1 234 567 890</span>
+                        <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> info@vantagedigitalagency.co.ke</span>
+                        <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> +254 780 088088</span>
                     </div>
                     <div class="flex items-center space-x-4">
                         <a href="#" class="hover:text-white transition"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
@@ -51,8 +51,8 @@
             <nav class="glass backdrop-blur-md">
                 <div class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="{{ url('/') }}" class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl">D</div>
-                    <span class="text-2xl font-bold gradient-text">DIGITAL</span>
+                    <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl">V</div>
+                    <span class="text-2xl font-bold gradient-text">VANTAGE</span>
                 </a>
 
                 <!-- Mobile Menu Button -->
@@ -103,8 +103,8 @@
             <div id="mobile-menu" class="fixed inset-0 bg-gray-950 z-[9999] hidden md:hidden flex flex-col">
                 <div class="flex justify-between items-center px-6 py-4 border-b border-white/5 bg-gray-950">
                     <a href="{{ url('/') }}" class="flex items-center space-x-2">
-                        <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl">D</div>
-                        <span class="text-2xl font-bold gradient-text">DIGITAL</span>
+                        <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl">V</div>
+                        <span class="text-2xl font-bold gradient-text">VANTAGE</span>
                     </a>
                     <button id="close-mobile-menu" class="text-white focus:outline-none p-2">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,7 +185,7 @@
         <footer class="bg-gray-900 py-12">
             <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
                 <div>
-                    <h3 class="text-xl font-bold mb-6">Digital Services</h3>
+                    <h3 class="text-xl font-bold mb-6">Vantage Digital Agency</h3>
                     <p class="text-gray-400">Transforming ideas into digital reality with cutting-edge technology and creative design.</p>
                 </div>
                 <div>
@@ -213,7 +213,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
-                &copy; {{ date('Y') }} Digital Services. All rights reserved.
+                &copy; {{ date('Y') }} Vantage Digital Agency. All rights reserved.
             </div>
         </footer>
     </div>

@@ -7,31 +7,36 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0' # Matches Laravel 8 requirement
+          php-version: '8.0'
 
       - name: Install Dependencies
         run: |
-          composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
+          composer install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader
 
       - name: Install NPM Dependencies
         run: |
           npm install
           npm run production
 
-      - name: Deploy to Server via FTP
+      - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.STAGING_PATH }}/ # Ensure this ends with a slash
+          server-dir: ${{ secrets.STAGING_PATH }}/
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
+            **/storage/**
+            **/.env
+            **/.env.*
+            **/tests/**

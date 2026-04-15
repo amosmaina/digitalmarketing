@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('seo')
-    <title>{{ $service->meta_title ?? $service->title . ' - Digital Services' }}</title>
+    <title>{{ $service->meta_title ?? $service->title . ' - Vantage Digital Agency' }}</title>
     <meta name="description" content="{{ $service->meta_description ?? $service->description }}">
     <meta name="keywords" content="{{ $service->meta_keywords }}">
 @endsection

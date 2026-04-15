@@ -21,7 +21,7 @@ class InquiryController extends Controller
         $inquiry = Inquiry::create($validated);
 
         // Send Email to the owner
-        Mail::to('amohmaish2002@gmail.com')->send(new InquiryMail($inquiry));
+        Mail::to('info@vantagedigitalagency.co.ke')->send(new InquiryMail($inquiry));
 
         return back()->with('success', 'Thank you! Your inquiry has been sent.');
     }

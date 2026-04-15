@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>DIGITAL SERVICES</h1>
+        <h1>VANTAGE DIGITAL AGENCY</h1>
         <p>Premium Solutions for Modern Businesses</p>
     </div>
 
@@ -34,12 +34,12 @@
 
         <div style="margin-top: 40px;">
             <h3>Interested?</h3>
-            <p>Contact us at amohmaish2002@gmail.com for a customized quote.</p>
+            <p>Contact us at info@vantagedigitalagency.co.ke for a customized quote.</p>
         </div>
     </div>
 
     <div class="footer">
-        &copy; {{ date('Y') }} Digital Services. All rights reserved. | www.digitalservices.com
+        &copy; {{ date('Y') }} Vantage Digital Agency. All rights reserved. | www.vantagedigitalagency.co.ke
     </div>
 </body>
 </html>
