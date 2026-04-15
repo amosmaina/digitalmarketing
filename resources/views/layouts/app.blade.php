@@ -13,7 +13,7 @@
         <meta name="description" content="We offer premium digital solutions ranging from branding to AI automation.">
     @endif
 
-    <!-- Scripts -->
+    <!-- Scripts yes-->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
