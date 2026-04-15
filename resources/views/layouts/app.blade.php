@@ -9,7 +9,7 @@
     @hasSection('seo')
         @yield('seo')
     @else
-        <title>Vantage Digital Agency - Premium Solutions</title>
+        <title>Vantage Digital Agency  Premium Solutions</title>
         <meta name="description" content="We offer premium digital solutions ranging from branding to AI automation.">
     @endif
 
