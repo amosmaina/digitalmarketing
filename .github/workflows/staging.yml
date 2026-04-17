@@ -15,10 +15,25 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
+          tools: composer:v2
+
+      - name: Validate Composer
+        run: composer validate
 
       - name: Install Dependencies
         run: |
-          composer install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader
+          composer install \
+            --no-ansi \
+            --no-dev \
+            --no-interaction \
+            --no-progress \
+            --optimize-autoloader \
+            --ignore-platform-reqs
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16' # Mix 5 works best with Node 16
 
       - name: Install NPM Dependencies
         run: |
