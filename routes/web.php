@@ -12,7 +12,12 @@ use App\Http\Controllers\HomeController;
 |--------------------------------------------------------------------------
 */
 
+use App\Http\Controllers\EventManagementController;
+use App\Http\Controllers\Admin\EventAdminController;
+
 Route::get('/', [ServiceController::class, 'index'])->name('welcome');
+Route::get('/event-management', [EventManagementController::class, 'index'])->name('events.index');
+Route::post('/event-management/book', [EventManagementController::class, 'store'])->name('events.book');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
 Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiry.store');
 Route::get('/services/{slug}/brochure', [ServiceController::class, 'downloadBrochure'])->name('services.brochure');
@@ -49,4 +54,13 @@ Route::middleware(['auth', 'backoffice'])->prefix('admin')->group(function () {
     // Page Sections
     Route::get('/sections', [AdminController::class, 'pageSections'])->name('admin.sections.index');
     Route::post('/sections', [AdminController::class, 'storeSection'])->name('admin.sections.store');
+
+    // Event Management Admin
+    Route::get('/event-services', [EventAdminController::class, 'services'])->name('admin.event-services.index');
+    Route::post('/event-services', [EventAdminController::class, 'storeService'])->name('admin.event-services.store');
+    Route::delete('/event-services/{service}', [EventAdminController::class, 'destroyService'])->name('admin.event-services.destroy');
+    
+    Route::get('/event-bookings', [EventAdminController::class, 'bookings'])->name('admin.event-bookings.index');
+    Route::get('/event-bookings/{booking}', [EventAdminController::class, 'showBooking'])->name('admin.event-bookings.show');
+    Route::post('/event-bookings/{booking}/invoice', [EventAdminController::class, 'generateInvoice'])->name('admin.event-bookings.invoice');
 });

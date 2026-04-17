@@ -66,6 +66,7 @@
                 
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="{{ url('/') }}" class="hover:text-indigo-400 transition">Home</a>
+                    <a href="{{ route('events.index') }}" class="hover:text-indigo-400 transition font-bold text-indigo-400">Events</a>
                     <a href="{{ url('/#about') }}" class="hover:text-indigo-400 transition">About</a>
                     <div class="relative group py-4">
                         <button class="hover:text-indigo-400 transition flex items-center">

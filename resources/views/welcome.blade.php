@@ -143,6 +143,22 @@
                     </div>
                 </div>
             @endforeach
+
+            <!-- Event Management Card -->
+            <div class="glass overflow-hidden rounded-3xl hover:bg-white/10 transition group transform hover:-translate-y-2 border-2 border-indigo-600/30">
+                <div class="h-48 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1200&h=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Event Management">
+                    <div class="absolute inset-0 bg-indigo-600/20 group-hover:bg-transparent transition"></div>
+                    <div class="absolute top-4 right-4 bg-indigo-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">New Service</div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold mb-4">Event Management</h3>
+                    <p class="text-gray-400 mb-6 line-clamp-2">Complete event solutions. Rent tents, sound systems, cameras, and everything you need for a successful celebration.</p>
+                    <a href="{{ route('events.index') }}" class="text-indigo-400 font-bold flex items-center group-hover:text-indigo-300">
+                        Rent Equipment <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

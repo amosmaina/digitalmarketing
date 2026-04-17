@@ -8,6 +8,8 @@
             <a href="{{ route('admin.users') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Manage Users</a>
             <a href="{{ route('admin.clients.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Clients</a>
             <a href="{{ route('admin.invoices.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Invoices</a>
+            <a href="{{ route('admin.event-bookings.index') }}" class="px-6 py-2 bg-indigo-600 rounded-full hover:bg-indigo-700 transition font-bold">Event Bookings</a>
+            <a href="{{ route('admin.event-services.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Event Inventory</a>
             <a href="{{ route('admin.products.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">POS/Products</a>
             <a href="{{ route('admin.sections.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Page Sections</a>
             <a href="{{ route('admin.inquiries') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Inquiries</a>
