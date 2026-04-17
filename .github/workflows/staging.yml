@@ -54,3 +54,4 @@ jobs:
             **/storage/**
             **/.env
             **/.env.*
+            **/testt/**
