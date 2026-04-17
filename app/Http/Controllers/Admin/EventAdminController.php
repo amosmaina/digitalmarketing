@@ -9,14 +9,21 @@ use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class EventAdminController extends Controller
 {
     public function services()
     {
-        $services = EventService::all();
-        return view('admin.events.services', compact('services'));
+        $services = EventService::orderBy('category')->orderBy('name')->get();
+        $categorySummary = EventService::selectRaw('category, count(*) as total')
+            ->groupBy('category')
+            ->orderBy('category')
+            ->get();
+        $activeServicesCount = EventService::where('is_active', true)->count();
+
+        return view('admin.events.services', compact('services', 'categorySummary', 'activeServicesCount'));
     }
 
     public function storeService(Request $request)
@@ -26,14 +33,23 @@ class EventAdminController extends Controller
             'category' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'unit' => 'required|string|max:50',
-            'image' => 'nullable|image|max:2048'
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
+            'is_active' => 'nullable|boolean',
         ]);
 
-        $data = $request->all();
+        $data = $request->only([
+            'name',
+            'category',
+            'price',
+            'unit',
+            'description',
+        ]);
+        $data['is_active'] = $request->boolean('is_active');
         
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('event-services', 'public');
-            $data['image'] = $path;
+            $data['image'] = Storage::url($path);
         }
 
         EventService::create($data);

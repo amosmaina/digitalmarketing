@@ -32,6 +32,7 @@
     </style>
 </head>
 <body class="bg-gray-950 text-white overflow-x-hidden">
+    @php($navServices = $siteServices ?? collect())
     <div id="app">
         <header class="fixed w-full z-50">
             <!-- Social Media Top Strip -->
@@ -74,8 +75,7 @@
                         </button>
                         <div class="absolute top-full left-0 w-64 pt-2 opacity-0 group-hover:opacity-100 transition-all pointer-events-none group-hover:pointer-events-auto">
                             <div class="glass rounded-xl overflow-hidden shadow-2xl">
-                                @php $services = \App\Models\Service::all(); @endphp
-                                @foreach($services as $service)
+                                @foreach($navServices as $service)
                                     <a href="{{ url('/services/' . $service->slug) }}" class="block px-4 py-3 hover:bg-white/10 transition">{{ $service->title }}</a>
                                 @endforeach
                             </div>
@@ -121,6 +121,7 @@
                             <p class="text-gray-500 text-xs uppercase tracking-[0.2em] font-bold">Navigation</p>
                             <div class="grid grid-cols-1 gap-4">
                                 <a href="{{ url('/') }}" class="text-3xl font-bold hover:text-indigo-400 transition">Home</a>
+                                <a href="{{ route('events.index') }}" class="text-3xl font-bold hover:text-indigo-400 transition">Events</a>
                                 <a href="{{ url('/#about') }}" class="text-3xl font-bold hover:text-indigo-400 transition">About</a>
                                 <a href="{{ url('/#contact') }}" class="text-3xl font-bold hover:text-indigo-400 transition">Contact</a>
                             </div>
@@ -129,7 +130,7 @@
                         <div class="space-y-6">
                             <p class="text-gray-500 text-xs uppercase tracking-[0.2em] font-bold">Our Services</p>
                             <div class="grid grid-cols-1 gap-4">
-                                @foreach($services as $service)
+                                @foreach($navServices as $service)
                                     <a href="{{ url('/services/' . $service->slug) }}" class="flex items-center group">
                                         <div class="w-1.5 h-1.5 bg-indigo-600 rounded-full mr-4 group-hover:scale-150 transition"></div>
                                         <span class="text-xl text-gray-300 group-hover:text-white transition">{{ $service->title }}</span>
@@ -193,7 +194,7 @@
                 <div>
                     <h3 class="text-xl font-bold mb-6">Services</h3>
                     <ul class="space-y-4 text-gray-400">
-                        @foreach($services as $service)
+                        @foreach($navServices as $service)
                             <li><a href="{{ url('/services/' . $service->slug) }}" class="hover:text-white transition">{{ $service->title }}</a></li>
                         @endforeach
                     </ul>

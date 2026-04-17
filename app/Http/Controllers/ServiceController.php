@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EventService;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -11,7 +12,13 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::all();
-        return view('welcome', compact('services'));
+        $eventServices = EventService::where('is_active', true)
+            ->orderBy('category')
+            ->orderBy('name')
+            ->get();
+        $eventCategories = $eventServices->groupBy('category');
+
+        return view('welcome', compact('services', 'eventServices', 'eventCategories'));
     }
 
     public function show($slug)

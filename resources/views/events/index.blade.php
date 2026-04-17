@@ -1,105 +1,192 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-6 pt-32 pb-20">
-    <div class="text-center mb-16">
-        <h1 class="text-5xl font-bold font-serif mb-4">Event Management & Rentals</h1>
-        <p class="text-gray-400 max-w-2xl mx-auto text-lg">Select the equipment and services you need for your event. We handle the setup and logistics so you can focus on the celebration.</p>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        <!-- Selection Area -->
-        <div class="lg:col-span-2 space-y-12">
-            @foreach($services as $category => $items)
-                <div class="space-y-6">
-                    <h2 class="text-2xl font-bold border-b border-white/10 pb-2">{{ $category }}</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        @foreach($items as $item)
-                            <div class="glass p-6 rounded-3xl flex flex-col justify-between hover:bg-white/5 transition border border-white/5 group">
-                                <div>
-                                    <h3 class="text-xl font-bold mb-2 group-hover:text-indigo-400 transition">{{ $item->name }}</h3>
-                                    <p class="text-gray-400 text-sm mb-4">{{ $item->description }}</p>
-                                    <div class="text-indigo-400 font-bold mb-4">{{ number_format($item->price, 2) }} KES <span class="text-gray-500 text-xs font-normal">/ {{ $item->unit }}</span></div>
-                                </div>
-                                <button 
-                                    onclick="addItem({{ $item->id }}, '{{ $item->name }}', {{ $item->price }})"
-                                    class="w-full py-3 bg-white/5 border border-white/10 rounded-xl hover:bg-indigo-600 hover:border-indigo-600 transition font-bold"
-                                >
-                                    Add to Event
-                                </button>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endforeach
+<div class="pt-24">
+    <section class="relative overflow-hidden py-20">
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute -top-20 left-0 h-80 w-80 rounded-full bg-indigo-600/20 blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-rose-500/15 blur-3xl"></div>
         </div>
 
-        <!-- Booking & Summary Area -->
-        <div class="lg:col-span-1">
-            <div class="glass p-8 rounded-3xl sticky top-32 border border-white/10">
-                <h3 class="text-2xl font-bold mb-6">Your Event Summary</h3>
-                
-                <div id="selected-items" class="space-y-4 mb-8 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
-                    <p class="text-gray-500 text-center py-4">No items selected yet.</p>
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-[1.2fr,0.8fr] gap-10 items-center">
+                <div>
+                    <p class="text-sm uppercase tracking-[0.3em] text-indigo-400 font-bold mb-4">Event Management</p>
+                    <h1 class="text-5xl md:text-6xl font-bold font-serif mb-6 leading-tight">Plan your event with the exact items and support you need.</h1>
+                    <p class="text-xl text-gray-300 max-w-2xl mb-8">
+                        Choose from our event equipment and service options, build a quick request, and let our team handle setup, logistics, and delivery.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 mb-10">
+                        <a href="#event-catalogue" class="px-8 py-4 bg-indigo-600 rounded-full font-bold hover:bg-indigo-700 transition">Browse Event Items</a>
+                        <a href="#event-quote" class="px-8 py-4 glass rounded-full font-bold hover:bg-white/10 transition">Request a Quote</a>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
+                        <div class="glass rounded-2xl p-5 border border-white/10">
+                            <p class="text-sm text-gray-400 mb-2">Available Categories</p>
+                            <p class="text-3xl font-bold">{{ $services->count() }}</p>
+                        </div>
+                        <div class="glass rounded-2xl p-5 border border-white/10">
+                            <p class="text-sm text-gray-400 mb-2">Bookable Items</p>
+                            <p class="text-3xl font-bold">{{ $services->flatten()->count() }}</p>
+                        </div>
+                        <div class="glass rounded-2xl p-5 border border-white/10">
+                            <p class="text-sm text-gray-400 mb-2">Support Included</p>
+                            <p class="text-3xl font-bold">Full</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="border-t border-white/10 pt-6 mb-8">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-gray-400">Total Items</span>
-                        <span id="total-items-count" class="font-bold">0</span>
-                    </div>
-                    <div class="flex justify-between items-center text-xl">
-                        <span class="font-bold">Estimated Total</span>
-                        <span id="total-price" class="font-bold text-indigo-400">0.00 KES</span>
-                    </div>
+                <div class="glass rounded-[2rem] border border-white/10 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1400&auto=format&fit=crop" alt="Event setup" class="h-full min-h-[360px] w-full object-cover">
                 </div>
-
-                <form id="booking-form" class="space-y-4">
-                    @csrf
-                    <input type="text" name="customer_name" placeholder="Full Name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
-                    <input type="email" name="email" placeholder="Email Address" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
-                    <input type="text" name="phone" placeholder="Phone Number" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
-                    <input type="text" name="location" placeholder="Event Location" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
-                    <div class="space-y-1">
-                        <label class="text-xs text-gray-500 px-1">Event Date</label>
-                        <input type="date" name="event_date" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
-                    </div>
-                    <textarea name="notes" placeholder="Special requirements..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600 h-24"></textarea>
-                    
-                    <button type="submit" id="submit-btn" class="w-full py-4 bg-indigo-600 rounded-2xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                        Submit Inquiry
-                    </button>
-                </form>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section id="event-catalogue" class="pb-20">
+        <div class="container mx-auto px-6 grid grid-cols-1 xl:grid-cols-[1.35fr,0.85fr] gap-8 items-start">
+            <div class="space-y-10">
+                @forelse($services as $category => $items)
+                    <section class="glass rounded-[2rem] p-8 border border-white/10">
+                        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+                            <div>
+                                <p class="text-sm uppercase tracking-[0.3em] text-gray-500 font-bold mb-3">Category</p>
+                                <h2 class="text-3xl font-bold font-serif">{{ $category }}</h2>
+                            </div>
+                            <p class="text-gray-400">{{ $items->count() }} item{{ $items->count() > 1 ? 's' : '' }} available</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            @foreach($items as $item)
+                                <article class="rounded-3xl overflow-hidden bg-white/[0.03] border border-white/10 hover:border-indigo-500/40 transition">
+                                    @if($item->image)
+                                        <img src="{{ $item->image }}" alt="{{ $item->name }}" class="w-full h-48 object-cover">
+                                    @else
+                                        <div class="h-48 bg-gradient-to-br from-indigo-600/20 via-slate-900 to-amber-500/20 p-6 flex items-end">
+                                            <div>
+                                                <p class="text-xs uppercase tracking-[0.3em] text-gray-400 mb-2">{{ $item->category }}</p>
+                                                <p class="text-2xl font-bold">{{ $item->name }}</p>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="p-6 space-y-4">
+                                        <div>
+                                            <h3 class="text-xl font-bold">{{ $item->name }}</h3>
+                                            <p class="text-sm text-gray-400 mt-2">{{ $item->description ?: 'Professional event support item ready for your booking.' }}</p>
+                                        </div>
+
+                                        <div class="flex items-end justify-between gap-4">
+                                            <div>
+                                                <p class="text-2xl font-bold text-indigo-400">{{ number_format($item->price, 2) }} KES</p>
+                                                <p class="text-xs text-gray-500">charged {{ $item->unit }}</p>
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                onclick="addItem({{ $item->id }}, @js($item->name), {{ $item->price }})"
+                                                class="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-indigo-600 hover:border-indigo-600 transition font-bold"
+                                            >
+                                                Add Item
+                                            </button>
+                                        </div>
+                                    </div>
+                                </article>
+                            @endforeach
+                        </div>
+                    </section>
+                @empty
+                    <div class="glass rounded-[2rem] p-10 border border-dashed border-white/10 text-center text-gray-400">
+                        No active event items are available yet. Add them from the backend event management section and they will show here automatically.
+                    </div>
+                @endforelse
+            </div>
+
+            <aside id="event-quote" class="xl:sticky xl:top-28 space-y-6">
+                <div class="glass rounded-[2rem] p-8 border border-white/10">
+                    <h2 class="text-3xl font-bold font-serif mb-3">Your Event Quote</h2>
+                    <p class="text-gray-400 mb-6">Select event items from the catalogue, review the estimate here, then send your booking request.</p>
+
+                    <div id="selected-items" class="space-y-4 mb-8 max-h-[22rem] overflow-y-auto pr-2 custom-scrollbar">
+                        <p class="text-gray-500 text-center py-6">No items selected yet.</p>
+                    </div>
+
+                    <div class="rounded-2xl bg-white/5 border border-white/10 p-5 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Selected quantity</span>
+                            <span id="total-items-count" class="font-bold">0</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xl">
+                            <span class="font-bold">Estimated total</span>
+                            <span id="total-price" class="font-bold text-indigo-400">0.00 KES</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-[2rem] p-8 border border-white/10">
+                    <h3 class="text-2xl font-bold mb-6">Send Booking Request</h3>
+
+                    <form id="booking-form" class="space-y-4">
+                        @csrf
+                        <input type="text" name="customer_name" placeholder="Full Name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
+                        <input type="email" name="email" placeholder="Email Address" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
+                        <input type="text" name="phone" placeholder="Phone Number" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
+                        <input type="text" name="location" placeholder="Event Location" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
+
+                        <div class="space-y-2">
+                            <label class="text-xs text-gray-500 uppercase tracking-[0.25em] font-bold px-1">Event Date</label>
+                            <input type="date" name="event_date" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600">
+                        </div>
+
+                        <textarea name="notes" placeholder="Share guest count, setup needs, venue timing, or any special instructions." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-600 h-28"></textarea>
+
+                        <button type="submit" id="submit-btn" class="w-full py-4 bg-indigo-600 rounded-2xl font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            Submit Inquiry
+                        </button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </section>
 </div>
 
 <script>
     let selectedItems = [];
 
     function addItem(id, name, price) {
-        const existing = selectedItems.find(i => i.id === id);
+        const existing = selectedItems.find(item => item.id === id);
+
         if (existing) {
-            existing.quantity++;
+            existing.quantity += 1;
         } else {
             selectedItems.push({ id, name, price, quantity: 1 });
         }
+
         renderItems();
     }
 
     function removeItem(id) {
-        selectedItems = selectedItems.filter(i => i.id !== id);
+        selectedItems = selectedItems.filter(item => item.id !== id);
         renderItems();
     }
 
     function updateQuantity(id, delta) {
-        const item = selectedItems.find(i => i.id === id);
-        if (item) {
-            item.quantity += delta;
-            if (item.quantity <= 0) removeItem(id);
-            else renderItems();
+        const item = selectedItems.find(entry => entry.id === id);
+
+        if (!item) {
+            return;
         }
+
+        item.quantity += delta;
+
+        if (item.quantity <= 0) {
+            removeItem(id);
+            return;
+        }
+
+        renderItems();
     }
 
     function renderItems() {
@@ -109,7 +196,7 @@
         const submitBtn = document.getElementById('submit-btn');
 
         if (selectedItems.length === 0) {
-            container.innerHTML = '<p class="text-gray-500 text-center py-4">No items selected yet.</p>';
+            container.innerHTML = '<p class="text-gray-500 text-center py-6">No items selected yet.</p>';
             totalPriceEl.textContent = '0.00 KES';
             totalCountEl.textContent = '0';
             submitBtn.disabled = true;
@@ -118,77 +205,92 @@
 
         let total = 0;
         let count = 0;
+
         container.innerHTML = selectedItems.map(item => {
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
             count += item.quantity;
+
             return `
-                <div class="flex justify-between items-center bg-white/5 p-4 rounded-2xl">
-                    <div class="flex-1">
-                        <p class="font-bold text-sm">${item.name}</p>
-                        <p class="text-xs text-gray-500">${item.price.toLocaleString()} KES each</p>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="flex items-center bg-black/20 rounded-lg px-2 py-1">
-                            <button onclick="updateQuantity(${item.id}, -1)" class="text-indigo-400 hover:text-white px-1">-</button>
-                            <span class="mx-2 text-sm">${item.quantity}</span>
-                            <button onclick="updateQuantity(${item.id}, 1)" class="text-indigo-400 hover:text-white px-1">+</button>
+                <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex-1">
+                            <p class="font-bold">${item.name}</p>
+                            <p class="text-xs text-gray-500 mt-1">${item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} KES each</p>
                         </div>
-                        <button onclick="removeItem(${item.id})" class="text-red-500/50 hover:text-red-500 transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </button>
+                        <button type="button" onclick="removeItem(${item.id})" class="text-red-400 hover:text-red-300 transition text-sm">Remove</button>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex items-center bg-black/20 rounded-xl px-2 py-1">
+                            <button type="button" onclick="updateQuantity(${item.id}, -1)" class="px-2 text-indigo-400 hover:text-white transition">-</button>
+                            <span class="px-3 text-sm font-bold">${item.quantity}</span>
+                            <button type="button" onclick="updateQuantity(${item.id}, 1)" class="px-2 text-indigo-400 hover:text-white transition">+</button>
+                        </div>
+                        <p class="font-bold text-indigo-400">${itemTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} KES</p>
                     </div>
                 </div>
             `;
         }).join('');
 
-        totalPriceEl.textContent = total.toLocaleString(undefined, { minimumFractionDigits: 2 }) + ' KES';
+        totalPriceEl.textContent = total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' KES';
         totalCountEl.textContent = count;
         submitBtn.disabled = false;
     }
 
-    document.getElementById('booking-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
+    document.getElementById('booking-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries());
         data.items = selectedItems;
 
-        const btn = document.getElementById('submit-btn');
-        btn.disabled = true;
-        btn.textContent = 'Submitting...';
+        const button = document.getElementById('submit-btn');
+        button.disabled = true;
+        button.textContent = 'Submitting...';
 
         try {
             const response = await fetch('{{ route('events.book') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
 
             const result = await response.json();
-            if (result.success) {
-                alert(result.message);
-                selectedItems = [];
-                e.target.reset();
-                renderItems();
-            } else {
-                alert(result.message);
+
+            if (!response.ok) {
+                alert(result.message || 'Something went wrong. Please try again later.');
+                return;
             }
+
+            alert(result.message);
+            selectedItems = [];
+            event.target.reset();
+            renderItems();
         } catch (error) {
-            alert('Something went wrong. Please check your internet connection.');
+            alert('Something went wrong. Please check your connection and try again.');
         } finally {
-            btn.disabled = false;
-            btn.textContent = 'Submit Inquiry';
+            button.disabled = false;
+            button.textContent = 'Submit Inquiry';
         }
     });
 </script>
 
 <style>
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.14);
+        border-radius: 9999px;
+    }
 </style>
 @endsection

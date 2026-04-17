@@ -19,6 +19,7 @@
             </p>
             <div class="flex flex-wrap gap-6">
                 <a href="#services" class="px-8 py-4 bg-indigo-600 rounded-full font-bold hover:bg-indigo-700 transition transform hover:scale-105 shadow-lg shadow-indigo-600/20">Our Services</a>
+                <a href="#events" class="px-8 py-4 glass rounded-full font-bold hover:bg-white/20 transition">Events We Offer</a>
                 <a href="#contact" class="px-8 py-4 glass rounded-full font-bold hover:bg-white/20 transition flex items-center">
                     Let's Talk <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </a>
@@ -126,8 +127,8 @@
             <h2 class="text-4xl font-bold mb-4 font-serif">Premium Services</h2>
             <div class="w-24 h-1 bg-indigo-600 mx-auto"></div>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($services as $service)
                 <div class="glass overflow-hidden rounded-3xl hover:bg-white/10 transition group transform hover:-translate-y-2">
                     <div class="h-48 overflow-hidden relative">
@@ -143,21 +144,63 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+    </div>
+</section>
 
-            <!-- Event Management Card -->
-            <div class="glass overflow-hidden rounded-3xl hover:bg-white/10 transition group transform hover:-translate-y-2 border-2 border-indigo-600/30">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1200&h=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Event Management">
-                    <div class="absolute inset-0 bg-indigo-600/20 group-hover:bg-transparent transition"></div>
-                    <div class="absolute top-4 right-4 bg-indigo-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">New Service</div>
+<!-- Events Section -->
+<section id="events" class="py-24">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 xl:grid-cols-[0.95fr,1.05fr] gap-10 items-start">
+            <div class="glass rounded-[2rem] overflow-hidden border border-white/10">
+                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1400&auto=format&fit=crop" alt="Event management" class="w-full h-full min-h-[420px] object-cover">
+            </div>
+
+            <div>
+                <p class="text-sm uppercase tracking-[0.3em] text-indigo-400 font-bold mb-4">Dedicated Event Section</p>
+                <h2 class="text-4xl md:text-5xl font-bold font-serif mb-6">Event management now stands on its own.</h2>
+                <p class="text-lg text-gray-300 mb-8">
+                    From tents and seating to decor, audio, and media coverage, our event team can assemble the setup you need.
+                    Browse event items separately from our digital services and request a tailored quote in minutes.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                        <p class="text-sm text-gray-400 mb-2">Active Event Categories</p>
+                        <p class="text-3xl font-bold">{{ $eventCategories->count() }}</p>
+                    </div>
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                        <p class="text-sm text-gray-400 mb-2">Available Event Items</p>
+                        <p class="text-3xl font-bold">{{ $eventServices->count() }}</p>
+                    </div>
                 </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold mb-4">Event Management</h3>
-                    <p class="text-gray-400 mb-6 line-clamp-2">Complete event solutions. Rent tents, sound systems, cameras, and everything you need for a successful celebration.</p>
-                    <a href="{{ route('events.index') }}" class="text-indigo-400 font-bold flex items-center group-hover:text-indigo-300">
-                        Rent Equipment <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
+
+                <div class="flex flex-wrap gap-3 mb-10">
+                    @forelse($eventCategories as $category => $items)
+                        <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">
+                            {{ $category }} <span class="text-gray-500">({{ $items->count() }})</span>
+                        </span>
+                    @empty
+                        <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-400">No event items added yet</span>
+                    @endforelse
                 </div>
+
+                @if($eventServices->isNotEmpty())
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        @foreach($eventServices->take(4) as $item)
+                            <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-5">
+                                <p class="text-xs uppercase tracking-[0.25em] text-gray-500 mb-2">{{ $item->category }}</p>
+                                <h3 class="text-xl font-bold mb-2">{{ $item->name }}</h3>
+                                <p class="text-sm text-gray-400 mb-4">{{ $item->description ?: 'Available for event booking and quote requests.' }}</p>
+                                <p class="font-bold text-indigo-400">{{ number_format($item->price, 2) }} KES <span class="text-xs text-gray-500 font-normal">{{ $item->unit }}</span></p>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                <a href="{{ route('events.index') }}" class="inline-flex items-center px-8 py-4 bg-indigo-600 rounded-full font-bold hover:bg-indigo-700 transition">
+                    Explore Event Items <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
             </div>
         </div>
     </div>
