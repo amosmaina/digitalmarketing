@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\EventService;
 use App\Models\EventBooking;
+use App\Models\BookingRequest;
 use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
@@ -109,5 +110,16 @@ class EventAdminController extends Controller
         $booking->update(['status' => 'invoiced']);
 
         return redirect()->route('admin.invoices.index')->with('success', 'Invoice generated from event booking!');
+    }
+
+    public function bookingRequests()
+    {
+        $requests = BookingRequest::latest()->paginate(15);
+        return view('admin.events.booking_requests', compact('requests'));
+    }
+
+    public function showBookingRequest(BookingRequest $request)
+    {
+        return view('admin.events.show_booking_request', compact('request'));
     }
 }

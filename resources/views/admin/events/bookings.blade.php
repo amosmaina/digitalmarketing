@@ -39,7 +39,7 @@
                     <td class="px-8 py-4">
                         <div class="text-xs text-gray-400">
                             @foreach($booking->items as $item)
-                                <span class="block">• {{ $item->service->name }} (x{{ $item->quantity }})</span>
+                                <span class="block">• {{ $item->service ? $item->service->name : 'Deleted Service' }} (x{{ $item->quantity }})</span>
                             @endforeach
                         </div>
                     </td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EventService;
 use App\Models\EventBooking;
 use App\Models\BookingItem;
+use App\Models\BookingRequest;
 use App\Mail\EventBookingInquiryMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -80,5 +81,43 @@ class EventManagementController extends Controller
                 'message' => 'Something went wrong. Please try again later.'
             ], 500);
         }
+    }
+
+    public function storeRequest(Request $request)
+    {
+        $validated = $request->validate([
+            'arrival_date' => 'required|date',
+            'nights' => 'required|integer|min:1',
+            'date_type' => 'required|string',
+            'visit_details' => 'required|string',
+            'selected_safaris' => 'nullable|array',
+            'additional_activities' => 'nullable|string',
+            'budget_range' => 'required|string',
+            'adults' => 'required|integer|min:1',
+            'children' => 'required|integer|min:0',
+            'travel_insurance' => 'boolean',
+            'international_flights' => 'boolean',
+            'safari_hats' => 'boolean',
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'contact_methods' => 'nullable|array',
+            'additional_comments' => 'nullable|string',
+        ]);
+
+        $bookingRequest = BookingRequest::create($validated);
+
+        // Send email (we'll create the mail class next)
+        try {
+            // Mail::to('info@vantagedigitalagency.co.ke')->send(new \App\Mail\NewBookingRequestMail($bookingRequest));
+        } catch (\Exception $e) {
+            // Log error but continue
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Thank you! Your adventure request has been submitted.',
+            'redirect' => route('thank-you')
+        ]);
     }
 }

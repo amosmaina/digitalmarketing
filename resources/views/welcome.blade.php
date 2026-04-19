@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+<div class="relative min-h-screen flex items-center pt-32 md:pt-40 overflow-hidden">
     <!-- Animated Background Elements -->
     <div class="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
         <div class="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse"></div>
@@ -18,9 +18,9 @@
                 We're a team of creative minds and technical experts dedicated to pushing the boundaries of what's possible in the digital world.
             </p>
             <div class="flex flex-wrap gap-6">
-                <a href="#services" class="px-8 py-4 bg-indigo-600 rounded-full font-bold hover:bg-indigo-700 transition transform hover:scale-105 shadow-lg shadow-indigo-600/20">Our Services</a>
-                <a href="#events" class="px-8 py-4 glass rounded-full font-bold hover:bg-white/20 transition">Events We Offer</a>
-                <a href="#contact" class="px-8 py-4 glass rounded-full font-bold hover:bg-white/20 transition flex items-center">
+                <a href="#services" class="px-8 py-4 btn-primary rounded-full shadow-lg shadow-yellow-600/20">Our Services</a>
+                <a href="#events" class="px-8 py-4 btn-outline rounded-full">Events We Offer</a>
+                <a href="#contact" class="px-8 py-4 btn-outline rounded-full flex items-center">
                     Let's Talk <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </a>
             </div>
@@ -84,6 +84,75 @@
     </div>
 </div>
 
+<!-- Trusted Partners Section -->
+<div class="py-12 border-y border-white/5 bg-white/[0.02]">
+    <div class="container mx-auto px-6">
+        <p class="text-center text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-10">Trusted by Industry Leaders</p>
+        <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-40 hover:opacity-100 transition duration-700 grayscale hover:grayscale-0">
+            <!-- Safaricom -->
+            <div class="h-8 md:h-10 group cursor-pointer transition flex items-center">
+                <span class="text-xl md:text-2xl font-black tracking-tighter group-hover:text-green-500 transition">Safaricom</span>
+            </div>
+            <!-- Equity -->
+            <div class="h-8 md:h-10 group cursor-pointer transition flex items-center">
+                <span class="text-xl md:text-2xl font-black tracking-tighter group-hover:text-amber-700 transition">EQUITY</span>
+            </div>
+            <!-- PrintAfrika -->
+            <div class="h-8 md:h-10 group cursor-pointer transition flex items-center">
+                <span class="text-xl md:text-2xl font-black tracking-tighter group-hover:text-blue-500 transition italic">PrintAfrika</span>
+            </div>
+            <!-- KCB -->
+            <div class="h-8 md:h-10 group cursor-pointer transition flex items-center">
+                <span class="text-xl md:text-2xl font-black tracking-tighter group-hover:text-green-600 transition">KCB</span>
+            </div>
+            <!-- NCBA -->
+            <div class="h-8 md:h-10 group cursor-pointer transition flex items-center">
+                <span class="text-xl md:text-2xl font-black tracking-tighter group-hover:text-orange-600 transition">NCBA</span>
+            </div>
+            <!-- Absa -->
+            <div class="h-8 md:h-10 group cursor-pointer transition flex items-center">
+                <span class="text-xl md:text-2xl font-black tracking-tighter group-hover:text-red-600 transition italic">absa</span>
+            </div>
+            <!-- KenGen -->
+            <div class="h-8 md:h-10 group cursor-pointer transition flex items-center">
+                <span class="text-xl md:text-2xl font-black tracking-tighter group-hover:text-green-800 transition">KenGen</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Unique Digital Transformation Section -->
+<section class="py-32 relative overflow-hidden bg-black">
+    <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#eab308_0,transparent_50%)] blur-[120px] animate-pulse"></div>
+    </div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="flex flex-col items-center text-center">
+            <div class="inline-block px-4 py-1 rounded-full border border-yellow-500/30 bg-yellow-500/5 text-yellow-500 text-xs font-bold uppercase tracking-[0.3em] mb-8 animate-bounce">
+                The Vantage Mission
+            </div>
+            
+            <h2 class="text-4xl md:text-6xl lg:text-8xl font-black font-serif tracking-tighter leading-tight mb-12">
+                <span class="block text-white">Your Partner in</span>
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-600 animate-gradient-x">Digital Transformation</span>
+            </h2>
+            
+            <p class="text-lg md:text-2xl text-gray-500 max-w-4xl leading-relaxed">
+                Everything digital. Strategically planned. Measurably grown. <br class="hidden md:block">
+                We walk with you through your growth journey, not just deliver projects.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Large Background Text -->
+    <div class="absolute -bottom-10 left-0 w-full overflow-hidden pointer-events-none whitespace-nowrap opacity-[0.03] select-none">
+        <span class="text-[20rem] font-black uppercase tracking-tighter text-white animate-marquee inline-block">
+            VANTAGE • TRANSFORMATION • INNOVATION • GROWTH • VANTAGE • TRANSFORMATION • INNOVATION • GROWTH •
+        </span>
+    </div>
+</section>
+
 <!-- Features Spotlight (Small Interactive Cards) -->
 <section class="py-24 relative overflow-hidden">
     <div class="container mx-auto px-6">
@@ -144,6 +213,24 @@
                     </div>
                 </div>
             @endforeach
+
+            <!-- Event Equipment for Hire Card -->
+            <div class="glass overflow-hidden rounded-3xl hover:bg-white/10 transition group transform hover:-translate-y-2 border border-yellow-500/30">
+                <div class="h-48 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Event Equipment for Hire">
+                    <div class="absolute inset-0 bg-yellow-600/20 group-hover:bg-transparent transition"></div>
+                </div>
+                <div class="p-8">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-bold">Event Equipment for Hire</h3>
+                        <span class="bg-yellow-500/20 text-yellow-500 text-xs px-2 py-1 rounded-full uppercase font-bold tracking-wider">Premium</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 line-clamp-2">High-quality tents, chairs, sound systems, and decor for all your corporate and social event needs.</p>
+                    <a href="{{ route('events.index') }}" class="text-yellow-500 font-bold flex items-center group-hover:text-yellow-400">
+                        View Equipment <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

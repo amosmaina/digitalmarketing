@@ -17,8 +17,12 @@
     <div class="container mx-auto px-6 pt-40 pb-20 relative z-10">
         <div class="flex flex-col lg:flex-row gap-16 items-center">
             <div class="lg:w-1/2">
-                <h1 class="text-5xl md:text-7xl font-bold mb-8 font-serif gradient-text">{{ $service->title }}</h1>
-                <p class="text-xl text-gray-300 mb-8 leading-relaxed">{{ $service->content }}</p>
+                <h1 class="text-5xl md:text-7xl font-bold font-serif mb-6 leading-tight">{{ $service->title }}</h1>
+                <p class="text-xl text-gray-300 max-w-2xl mb-10 leading-relaxed">
+                    {{-- Dynamically wrap the service name in a link to home --}}
+                    {!! str_replace($service->title, '<a href="'.url('/').'" class="text-yellow-500 hover:underline">'.$service->title.'</a>', $service->description) !!}
+                    Stay updated with the latest trends on our <a href="https://blogs.vantagedigitalagency.co.ke" target="_blank" class="text-yellow-500 hover:underline">Vantage Blog</a>.
+                </p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                     @foreach($service->features as $feature)
@@ -32,8 +36,8 @@
                 </div>
 
                 <div class="flex space-x-6">
-                    <a href="#inquiry" class="px-8 py-4 bg-indigo-600 rounded-full font-bold hover:bg-indigo-700 transition">Get Started</a>
-                    <a href="{{ route('services.brochure', $service->slug) }}" class="px-8 py-4 glass rounded-full font-bold hover:bg-white/20 transition flex items-center">
+                    <a href="#inquiry" class="px-8 py-4 btn-primary rounded-full">Get Started</a>
+                    <a href="{{ route('services.brochure', $service->slug) }}" class="px-8 py-4 btn-outline rounded-full flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         Download Brochure
                     </a>
@@ -123,7 +127,7 @@
                 </div>
             </div>
             <div class="lg:w-1/2 order-1 lg:order-2">
-                <h2 class="text-4xl font-bold mb-8 font-serif">Why Choose This Service?</h2>
+                <h2 class="text-4xl font-bold mb-8 font-serif">Why Choose ours '{{ $service->title }}' service?</h2>
                 <p class="text-xl text-gray-400 mb-8 leading-relaxed">
                     Our approach to {{ $service->title }} combines technical expertise with a deep understanding of business goals. we don't just deliver a service; we provide a strategic partnership that drives real growth.
                 </p>
@@ -171,7 +175,7 @@
                 <input type="text" name="name" placeholder="Name" required class="bg-white/5 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-600 w-full">
                 <input type="email" name="email" placeholder="Email" required class="bg-white/5 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-600 w-full">
             </div>
-            <textarea name="message" rows="5" placeholder="Tell us about your project" required class="bg-white/5 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-indigo-600 w-full"></textarea>
+            <textarea name="message" rows="5" placeholder="Tell us about your project" required class="bg-white/5 border border-white/10 rounded-xl px-6 py-4 focus:outline-none focus:border-yellow-500 w-full"></textarea>
             <button type="submit" class="w-full py-4 bg-indigo-600 rounded-xl font-bold hover:bg-indigo-700 transition">Send Message</button>
         </form>
     </div>

@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\EventAdminController;
 Route::get('/', [ServiceController::class, 'index'])->name('welcome');
 Route::get('/event-management', [EventManagementController::class, 'index'])->name('events.index');
 Route::post('/event-management/book', [EventManagementController::class, 'store'])->name('events.book');
+Route::post('/event-management/request', [EventManagementController::class, 'storeRequest'])->name('events.request');
+Route::get('/thank-you', function() { return view('thank-you'); })->name('thank-you');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
 Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiry.store');
 Route::get('/services/{slug}/brochure', [ServiceController::class, 'downloadBrochure'])->name('services.brochure');
@@ -63,4 +65,8 @@ Route::middleware(['auth', 'backoffice'])->prefix('admin')->group(function () {
     Route::get('/event-bookings', [EventAdminController::class, 'bookings'])->name('admin.event-bookings.index');
     Route::get('/event-bookings/{booking}', [EventAdminController::class, 'showBooking'])->name('admin.event-bookings.show');
     Route::post('/event-bookings/{booking}/invoice', [EventAdminController::class, 'generateInvoice'])->name('admin.event-bookings.invoice');
+
+    // New Adventure Booking Requests
+    Route::get('/booking-requests', [EventAdminController::class, 'bookingRequests'])->name('admin.booking-requests.index');
+    Route::get('/booking-requests/{request}', [EventAdminController::class, 'showBookingRequest'])->name('admin.booking-requests.show');
 });

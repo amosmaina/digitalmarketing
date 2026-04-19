@@ -8,7 +8,8 @@
             <a href="{{ route('admin.users') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Manage Users</a>
             <a href="{{ route('admin.clients.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Clients</a>
             <a href="{{ route('admin.invoices.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Invoices</a>
-            <a href="{{ route('admin.event-bookings.index') }}" class="px-6 py-2 bg-indigo-600 rounded-full hover:bg-indigo-700 transition font-bold">Event Bookings</a>
+            <a href="{{ route('admin.booking-requests.index') }}" class="px-6 py-2 btn-primary rounded-full">Adventure Requests</a>
+            <a href="{{ route('admin.event-bookings.index') }}" class="px-6 py-2 bg-white/10 rounded-full hover:bg-white/20 transition font-bold">Event Bookings</a>
             <a href="{{ route('admin.event-services.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Manage Event Items</a>
             <a href="{{ route('admin.products.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">POS/Products</a>
             <a href="{{ route('admin.sections.index') }}" class="px-6 py-2 glass rounded-full hover:bg-white/10 transition">Page Sections</a>
@@ -82,7 +83,7 @@
                 <div class="flex items-center justify-between border-b border-white/5 pb-4 last:border-0">
                     <div>
                         <p class="font-bold text-white">{{ $inquiry->name }}</p>
-                        <p class="text-xs text-gray-500">{{ $inquiry->service->title }}</p>
+                        <p class="text-xs text-gray-500">{{ $inquiry->service ? $inquiry->service->title : 'General' }}</p>
                     </div>
                     <div class="text-right text-xs text-gray-500">
                         {{ $inquiry->created_at->diffForHumans() }}

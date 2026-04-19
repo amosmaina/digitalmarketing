@@ -28,7 +28,16 @@
         body { font-family: 'Inter', sans-serif; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .gradient-text { background: linear-gradient(45deg, #6366f1, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-text { color: #eab308; }
+        .btn-primary { background-color: #eab308; color: #000; font-weight: bold; transition: all 0.3s; }
+        .btn-primary:hover { background-color: #ca8a04; transform: scale(1.05); }
+        .btn-outline { border: 1px solid #eab308; color: #eab308; font-weight: bold; transition: all 0.3s; }
+        .btn-outline:hover { background-color: rgba(234, 179, 8, 0.1); transform: scale(1.05); }
+        .modal-blur { backdrop-filter: blur(10px); background-color: rgba(0, 0, 0, 0.7); }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { animation: marquee 30s linear infinite; }
+        @keyframes gradient-x { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .animate-gradient-x { background-size: 200% 200%; animation: gradient-x 5s ease infinite; }
     </style>
 </head>
 <body class="bg-gray-950 text-white overflow-x-hidden">
@@ -66,35 +75,40 @@
                 </button>
                 
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="{{ url('/') }}" class="hover:text-indigo-400 transition">Home</a>
-                    <a href="{{ route('events.index') }}" class="hover:text-indigo-400 transition font-bold text-indigo-400">Events</a>
-                    <a href="{{ url('/#about') }}" class="hover:text-indigo-400 transition">About</a>
+                    <a href="{{ url('/') }}" class="hover:text-yellow-500 transition">Home</a>
+                    <a href="{{ route('events.index') }}" class="hover:text-yellow-500 transition font-bold text-yellow-500">Events</a>
+                    <a href="https://blogs.vantagedigitalagency.co.ke" target="_blank" class="hover:text-yellow-500 transition">Blog</a>
+                    <a href="{{ url('/#about') }}" class="hover:text-yellow-500 transition">About</a>
                     <div class="relative group py-4">
-                        <button class="hover:text-indigo-400 transition flex items-center">
+                        <button class="hover:text-yellow-500 transition flex items-center">
                             Services <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="absolute top-full left-0 w-64 pt-2 opacity-0 group-hover:opacity-100 transition-all pointer-events-none group-hover:pointer-events-auto">
-                            <div class="glass rounded-xl overflow-hidden shadow-2xl">
-                                @foreach($navServices as $service)
-                                    <a href="{{ url('/services/' . $service->slug) }}" class="block px-4 py-3 hover:bg-white/10 transition">{{ $service->title }}</a>
-                                @endforeach
-                            </div>
+                        <div class="absolute top-full left-0 w-64 bg-white rounded-xl overflow-hidden shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                            @foreach($navServices as $service)
+                                <a href="{{ route('services.show', $service->slug) }}" class="block px-4 py-3 text-yellow-600 hover:bg-yellow-50 transition font-medium border-b border-gray-100 last:border-0">{{ $service->title }}</a>
+                            @endforeach
                         </div>
                     </div>
-                    <a href="{{ url('/#contact') }}" class="hover:text-indigo-400 transition">Contact</a>
+                    <a href="{{ url('/#contact') }}" class="hover:text-yellow-500 transition">Contact</a>
                     @guest
-                        <a href="{{ route('login') }}" class="px-6 py-2 bg-indigo-600 rounded-full hover:bg-indigo-700 transition">Login</a>
+                        <a href="{{ route('login') }}" class="px-6 py-2 btn-primary rounded-full">Login</a>
                     @else
                         <div class="relative group py-4">
-                            <button class="hover:text-indigo-400 transition flex items-center">
-                                {{ Auth::user()->name }}
-                            </button>
-                            <div class="absolute top-full right-0 w-48 pt-2 opacity-0 group-hover:opacity-100 transition-all pointer-events-none group-hover:pointer-events-auto">
-                                <div class="glass rounded-xl overflow-hidden shadow-2xl">
-                                    <a href="{{ url('/dashboard') }}" class="block px-4 py-3 hover:bg-white/10 transition">Dashboard</a>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block px-4 py-3 hover:bg-white/10 transition">Logout</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
+                            <button class="flex items-center space-x-3 focus:outline-none">
+                                <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-500 font-bold border border-yellow-500/30">
+                                    {{ substr(Auth::user()->name, 0, 1) }}
                                 </div>
+                                <span class="hidden md:block font-medium">{{ Auth::user()->name }}</span>
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="absolute top-full right-0 w-56 bg-white rounded-xl overflow-hidden shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                                <div class="px-4 py-3 border-b border-gray-100 bg-gray-50">
+                                    <p class="font-bold text-gray-900">{{ Auth::user()->name }}</p>
+                                    <a href="{{ route('admin.index') }}" class="text-sm text-yellow-600 hover:underline">View Dashboard</a>
+                                </div>
+                                <a href="{{ route('admin.index') }}" class="block px-4 py-3 text-gray-700 hover:bg-yellow-50 hover:text-yellow-600 transition font-medium border-b border-gray-100">Admin Panel</a>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block px-4 py-3 text-red-600 hover:bg-red-50 transition font-medium">Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
                             </div>
                         </div>
                     @endguest
@@ -150,7 +164,7 @@
                                         </div>
                                         <div>
                                             <p class="font-bold">{{ Auth::user()->name }}</p>
-                                            <a href="{{ url('/dashboard') }}" class="text-sm text-gray-500 hover:text-indigo-400">View Dashboard</a>
+                                            <a href="{{ route('admin.index') }}" class="text-sm text-gray-500 hover:text-indigo-400">View Dashboard</a>
                                         </div>
                                     </div>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();" class="p-3 bg-red-500/10 text-red-500 rounded-xl">
@@ -187,32 +201,28 @@
 
         <footer class="bg-gray-900 py-12">
             <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-                <div>
-                    <h3 class="text-xl font-bold mb-6">Vantage Digital Agency</h3>
-                    <p class="text-gray-400">Transforming ideas into digital reality with cutting-edge technology and creative design.</p>
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="{{ asset('images/vantagelogo.png') }}" alt="Vantage Logo" class="h-10">
+                        <span class="text-2xl font-bold font-serif tracking-tighter text-yellow-500">VANTAGE</span>
+                    </div>
+                    <p class="text-gray-400 max-w-sm mb-6">Everything digital. Strategically planned. Measurably grown. We walk with you through your growth journey, not just deliver projects.</p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold mb-6">Services</h3>
+                    <h4 class="text-white font-bold mb-6">Quick Links</h4>
                     <ul class="space-y-4 text-gray-400">
-                        @foreach($navServices as $service)
-                            <li><a href="{{ url('/services/' . $service->slug) }}" class="hover:text-white transition">{{ $service->title }}</a></li>
-                        @endforeach
+                        <li><a href="{{ url('/') }}" class="hover:text-white transition">Home</a></li>
+                        <li><a href="{{ route('events.index') }}" class="hover:text-white transition">Events</a></li>
+                        <li><a href="https://blogs.vantagedigitalagency.co.ke" target="_blank" class="hover:text-white transition">Blog</a></li>
+                        <li><a href="{{ url('/#about') }}" class="hover:text-white transition">About</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold mb-6">Company</h3>
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
                     <ul class="space-y-4 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
-                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
-                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li>info@vantagedigitalagency.co.ke</li>
+                        <li>+254 780 088088</li>
                     </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-6">Newsletter</h3>
-                    <form class="flex">
-                        <input type="email" placeholder="Email" class="bg-gray-800 px-4 py-2 rounded-l-lg focus:outline-none w-full">
-                        <button class="bg-indigo-600 px-4 py-2 rounded-r-lg hover:bg-indigo-700 transition">Join</button>
-                    </form>
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">

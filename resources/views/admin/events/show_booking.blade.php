@@ -77,7 +77,7 @@
                     <tbody>
                         @foreach($booking->items as $item)
                         <tr class="border-b border-white/5 hover:bg-white/5 transition">
-                            <td class="px-8 py-4 font-bold">{{ $item->service->name }}</td>
+                            <td class="px-8 py-4 font-bold">{{ $item->service ? $item->service->name : 'Deleted Service' }}</td>
                             <td class="px-8 py-4 text-center font-bold text-gray-400">{{ $item->quantity }}</td>
                             <td class="px-8 py-4 text-right">{{ number_format($item->unit_price, 2) }} KES</td>
                             <td class="px-8 py-4 text-right font-bold">{{ number_format($item->total, 2) }} KES</td>
